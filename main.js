@@ -2,6 +2,29 @@
 // #ifndef VUE3
 import Vue from 'vue'
 import App from './App'
+import {$http} from '@escook/request-miniprogram'
+
+uni.$http = $http
+$http.baseUrl = 'https://www.uinav.com'
+
+// 
+uni.$showMsg = function(title='请求数据失败', duration=1500){
+	uni.showToast({
+		title,
+		duration,
+		icon:'none'
+	})
+}
+
+$http.beforeRequest= function(option){
+	uni.showLoading({
+		title:'Loading....'
+	})
+}
+
+$http.afterRequest = function(){
+	uni.hideLoading()
+}
 
 Vue.config.productionTip = false
 
